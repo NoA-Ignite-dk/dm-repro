@@ -1,0 +1,87 @@
+{
+	"name": "web",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/web",
+	"projectType": "application",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/next:build",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"root": "apps/web",
+				"outputPath": "dist/apps/web"
+			},
+			"configurations": {
+				"production": {}
+			}
+		},
+		"dev": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["npx nx run web:serve", "npx nx run web:generate_graphql_types:watch"],
+				"parallel": true
+			}
+		},
+		"serve": {
+			"executor": "@nrwl/next:server",
+			"options": {
+				"buildTarget": "web:build",
+				"dev": true
+			},
+			"configurations": {
+				"production": {
+					"buildTarget": "web:build:production",
+					"dev": false
+				}
+			}
+		},
+		"export": {
+			"executor": "@nrwl/next:export",
+			"options": {
+				"buildTarget": "web:build:production"
+			}
+		},
+		"build_then_serve": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["npx nx run web:build:production", "npx nx run web:serve:production"],
+				"parallel": false
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/apps/web"],
+			"options": {
+				"jestConfig": "apps/web/jest.config.ts",
+				"passWithNoTests": true
+			},
+			"configurations": {
+				"watch": {
+					"watch": true
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
+			},
+			"configurations": {
+				"fix": {
+					"fix": true
+				}
+			}
+		},
+		"stylelint": {
+			"executor": "nx-stylelint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/web/**/*.scss"],
+				"formatter": "tap"
+			}
+		}
+	},
+	"tags": []
+}

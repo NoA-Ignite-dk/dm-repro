@@ -1,0 +1,166 @@
+{
+	"extends": ["plugin:storybook/recommended", "@noaignite-dk/eslint-config/typescript"],
+	"plugins": ["simple-import-sort", "@nrwl/nx"],
+	"root": true,
+
+	"rules": {
+		"@nrwl/nx/enforce-module-boundaries": [
+			"error",
+			{
+				"allow": ["@apps", "@web", "@dansk-metal", "@reach/tooltip"],
+				"depConstraints": [
+					{
+						"onlyDependOnLibsWithTags": ["*"],
+						"sourceTag": "*"
+					}
+				],
+				"enforceBuildableLibDependency": true
+			}
+		],
+		"function-paren-newline": "off",
+		"global-require": "error",
+		"implicit-arrow-linebreak": "off",
+		"import/no-extraneous-dependencies": ["off"],
+		"import/prefer-default-export": "off",
+		"import/no-relative-packages": "off",
+		"no-tabs": "off",
+		"no-empty-pattern": "off",
+		"no-mixed-spaces-and-tabs": "off",
+		"import/newline-after-import": "off",
+		"no-promise-executor-return": "off",
+		"no-console": ["warn", { "allow": ["warn", "error", "info", "group", "groupEnd"] }],
+		"object-curly-newline": "off",
+		"operator-linebreak": "off",
+		"comma-dangle": ["error", "always-multiline"],
+		"prefer-destructuring": "off",
+		"max-len": [
+			"error",
+			{
+				"code": 140,
+				"ignoreComments": true,
+				"ignoreStrings": true,
+				"ignoreTemplateLiterals": true,
+				"ignoreRegExpLiterals": true
+			}
+		],
+		"simple-import-sort/imports": [
+			"warn",
+			{
+				"groups": [
+					["^node:"],
+					["^react","^next","^@noaignite-dk","^@?\\w"],
+					["^(@dansk-metal)"],
+					["^(@noa)"],
+					["^(@(web|apps)/config)"],
+					["^(@(web|apps)/assets)"],
+					["^(@(web|apps)/blocks)"],
+					["^(@(web|apps)/components)"],
+					["^(@(web|apps)/config)"],
+					["^(@(web|apps)/constants)"],
+					["^(@(web|apps)/layouts)"],
+					["^(@(web|apps)/lib)"],
+					["^(@(web|apps)/pages)"],
+					["^(@(web|apps)/services)"],
+					["^(@(web|apps)/state)"],
+					["^(@(web|apps)/styles)"],
+					["^(@(web|apps)/templates)"],
+					["^(@(web|apps)/translations)"],
+					["^(@(web|apps)/types)"],
+					["^(@(web|apps)/utils)"],
+					["^(@(web|apps))"],
+					["^\\u0000"],
+					["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+					["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+					["^.+\\.s?(scss|css)"]
+				]
+			}
+		],
+		"unused-imports/no-unused-imports": ["error"],
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"args": "after-used",
+				"argsIgnorePattern": "^_",
+				"vars": "all",
+				"varsIgnorePattern": "^_"
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+			"parserOptions": {
+				"project": ["tsconfig(.*)?.json"]
+			},
+			"rules": {
+				"@typescript-eslint/ban-types": "off",
+				"@typescript-eslint/comma-dangle": "off",
+				"@typescript-eslint/dot-notation": "off",
+				"@typescript-eslint/indent": [
+					"error",
+					"tab",
+					{
+						"ignoredNodes": [
+							"PropertyDefinition[decorators]",
+							"TSUnionType",
+							"TSTypeParameterInstantiation",
+							"TSIntersectionType"
+						]
+					}
+				],
+				"@typescript-eslint/naming-convention": "off",
+				"@typescript-eslint/no-unused-vars": "off",
+				"no-use-before-define": "off",
+				"@typescript-eslint/no-use-before-define": ["error", {
+					"functions": false,
+					"classes": false,
+					"variables": true,
+					"allowNamedExports": false,
+					"enums": false,
+					"typedefs": false
+				}],
+				"@typescript-eslint/no-shadow": [
+					"error",
+					{
+						"ignoreFunctionTypeParameterNameValueShadow": true
+					}
+				]
+			}
+		},
+		{
+			"excludedFiles": ["*.stories.ts", "*.stories.tsx"],
+			"files": ["*.ts", "*.tsx"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"message": "Please don't import this library in non *.stories.* files. It's only meant to be used internally in Storybook",
+						"name": "@dansk-metal/utils-storybook"
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.js"],
+			"rules": {
+				"no-use-before-define": ["error", {
+					"functions": false,
+					"classes": false,
+					"variables": true
+				}]
+			}
+		},
+		{
+			"files": ["*.mjs"],
+			"parserOptions": {
+				"ecmaVersion": "latest"
+			},
+			"rules": {
+				"import/extensions": "off",
+				"import/no-unresolved": "off",
+				"import/no-relative-packages": "off",
+				"no-console": "off"
+			}
+		}
+	]
+}

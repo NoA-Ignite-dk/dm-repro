@@ -1,0 +1,20 @@
+body {
+	word-wrap: break-word;
+
+	// CookieInformation bottom part.
+	#coitable {
+		display: none;
+	}
+}
+
+// stylelint-disable-next-line selector-id-pattern
+#__next {
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 100vh;
+}
+
+:root {
+	--header-height: 72px;
+	--header-border: 1px;
+}

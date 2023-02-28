@@ -1,0 +1,23 @@
+{
+	"macros": {
+		"js.changesFormat": ["eslint.executeAutofix", "editor.action.formatChanges"],
+		"js.fullFormat": ["eslint.executeAutofix", "editor.action.formatDocument"],
+		"scss.fullFormat": ["stylelint.executeAutofix", "editor.action.formatDocument"]
+	},
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"editor.linkedEditing": true,
+	"cssVariables.lookupFiles": ["libs/theme/src/**/*.scss"],
+	"npm.packageManager": "npm",
+	"stylelint.validate": [
+		"css",
+		"less",
+		"postcss",
+		"scss"
+	],
+	"thunder-client.saveToWorkspace": true,
+	"thunder-client.workspaceRelativePath": ".vscode",
+	"thunder-client.sidebar.treeIndentation": 5
+}
